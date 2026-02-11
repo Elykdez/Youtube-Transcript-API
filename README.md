@@ -22,7 +22,7 @@
   <a href="https://youtubetranscript.dev"><img src="https://img.shields.io/badge/response_time-<200ms-blue" alt="Response Time" /></a>
   <a href="https://youtubetranscript.dev/pricing"><img src="https://img.shields.io/badge/free_tier-available-orange" alt="Free Tier" /></a>
   <a href="https://youtubetranscript.dev"><img src="https://img.shields.io/badge/languages-100+-purple" alt="Languages" /></a>
-  <a href="https://www.npmjs.com/package/@youtubetranscript/api"><img src="https://img.shields.io/npm/v/@youtubetranscript/api?label=npm" alt="npm" /></a>
+  <a href="https://www.npmjs.com/package/youtube-audio-transcript-api"><img src="https://img.shields.io/npm/v/youtube-audio-transcript-api?label=npm" alt="npm" /></a>
 </p>
 
 ---
@@ -181,13 +181,13 @@ Returns immediately with `status: "processing"`. Results are delivered to your w
 ### Install the SDK (Node.js / TypeScript)
 
 ```bash
-npm install @youtubetranscript/api
+npm install youtube-audio-transcript-api
 ```
 
 ### Node.js / TypeScript (SDK)
 
 ```typescript
-import { YouTubeTranscript } from "@youtubetranscript/api";
+import { YouTubeTranscript } from "youtube-audio-transcript-api";
 
 const yt = new YouTubeTranscript({ apiKey: "your_api_key" });
 
@@ -216,7 +216,7 @@ const asr = await yt.transcribe({
 });
 ```
 
-**→ [Full SDK documentation](https://www.npmjs.com/package/@youtubetranscript/api)**
+**→ [Full SDK documentation](https://www.npmjs.com/package/youtube-audio-transcript-api)**
 
 ### Python
 
@@ -326,7 +326,7 @@ This is the public repository for [YouTubeTranscript.dev](https://youtubetranscr
 ## Links
 
 - 🌐 [Website](https://youtubetranscript.dev)
-- 📦 [npm SDK](https://www.npmjs.com/package/@youtubetranscript/api)
+- 📦 [npm SDK](https://www.npmjs.com/package/youtube-audio-transcript-api)
 - 📖 [API Documentation](https://youtubetranscript.dev/api-docs)
 - 📐 [OpenAPI Spec (YAML)](https://youtubetranscript.dev/api-docs#openapi)
 - 💰 [Pricing](https://youtubetranscript.dev/pricing)
