@@ -22,6 +22,7 @@
   <a href="https://youtubetranscript.dev"><img src="https://img.shields.io/badge/response_time-<200ms-blue" alt="Response Time" /></a>
   <a href="https://youtubetranscript.dev/pricing"><img src="https://img.shields.io/badge/free_tier-available-orange" alt="Free Tier" /></a>
   <a href="https://youtubetranscript.dev"><img src="https://img.shields.io/badge/languages-100+-purple" alt="Languages" /></a>
+  <a href="https://www.npmjs.com/package/@youtubetranscript/api"><img src="https://img.shields.io/npm/v/@youtubetranscript/api?label=npm" alt="npm" /></a>
 </p>
 
 ---
@@ -177,6 +178,46 @@ Returns immediately with `status: "processing"`. Results are delivered to your w
 
 ## Examples
 
+### Install the SDK (Node.js / TypeScript)
+
+```bash
+npm install @youtubetranscript/api
+```
+
+### Node.js / TypeScript (SDK)
+
+```typescript
+import { YouTubeTranscript } from "@youtubetranscript/api";
+
+const yt = new YouTubeTranscript({ apiKey: "your_api_key" });
+
+// Simple — one line
+const result = await yt.getTranscript("dQw4w9WgXcQ");
+console.log(result.data?.transcript.text);
+
+// With options
+const translated = await yt.transcribe({
+  video: "dQw4w9WgXcQ",
+  language: "es",
+  format: { timestamp: true },
+});
+
+// Batch — up to 100 videos
+const batch = await yt.batch({
+  video_ids: ["dQw4w9WgXcQ", "jNQXAC9IVRw", "9bZkp7q19f0"],
+});
+
+// ASR for videos without captions
+const asr = await yt.transcribe({
+  video: "VIDEO_ID",
+  source: "asr",
+  allow_asr: true,
+  webhook_url: "https://yoursite.com/webhook",
+});
+```
+
+**→ [Full SDK documentation](https://www.npmjs.com/package/@youtubetranscript/api)**
+
 ### Python
 
 ```python
@@ -199,7 +240,7 @@ for segment in data["data"]["transcript"]:
     print(f"[{segment['start']:.1f}s] {segment['text']}")
 ```
 
-### JavaScript / Node.js
+### JavaScript / Node.js (without SDK)
 
 ```javascript
 const response = await fetch("https://youtubetranscript.dev/api/v2/transcribe", {
@@ -212,9 +253,7 @@ const response = await fetch("https://youtubetranscript.dev/api/v2/transcribe", 
 });
 
 const { data } = await response.json();
-data.transcript.forEach((seg) => {
-  console.log(`[${seg.start}s] ${seg.text}`);
-});
+console.log(data.transcript.text);
 ```
 
 ### More Examples
@@ -287,6 +326,7 @@ This is the public repository for [YouTubeTranscript.dev](https://youtubetranscr
 ## Links
 
 - 🌐 [Website](https://youtubetranscript.dev)
+- 📦 [npm SDK](https://www.npmjs.com/package/@youtubetranscript/api)
 - 📖 [API Documentation](https://youtubetranscript.dev/api-docs)
 - 📐 [OpenAPI Spec (YAML)](https://youtubetranscript.dev/api-docs#openapi)
 - 💰 [Pricing](https://youtubetranscript.dev/pricing)
