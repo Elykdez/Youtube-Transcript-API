@@ -1,6 +1,11 @@
 ---
-name: YouTube Transcript API
-description: Extract, transcribe, and translate YouTube video transcripts using the YouTubeTranscript.dev V2 API. Supports captions, ASR audio transcription, batch processing (up to 100 videos), translation to 100+ languages, and multiple output formats.
+name: youtube-transcript-api
+description: Extract, transcribe, and translate YouTube video transcripts using the YouTubeTranscript.dev V2 API. Supports captions, ASR audio transcription, batch processing (up to 100 videos), translation to 100+ languages, and multiple output formats. Use when working with YouTube videos, subtitles, captions, or video-to-text conversion.
+license: MIT
+compatibility: Requires network access to youtubetranscript.dev API. Works with any language or runtime that can make HTTP requests.
+metadata:
+  author: YouTubeTranscript.dev
+  version: "2.0"
 ---
 
 # YouTube Transcript API Skill
