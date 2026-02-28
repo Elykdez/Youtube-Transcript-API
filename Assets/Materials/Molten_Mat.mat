@@ -1,0 +1,41 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!21 &2100000
+Material:
+  serializedVersion: 6
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Molten_Mat
+  m_Shader: {fileID: -6465566751694194690, guid: 405e13c201b724ce7ae22bdefcc4b5c8,
+    type: 3}
+  m_ShaderKeywords: 
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - Texture2D_628E08E7:
+        m_Texture: {fileID: 2800000, guid: 7b82d12aad56cc445b99fd1cf06a232d, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Floats:
+    - Vector1_4FB2F696: 25
+    - Vector1_5A540210: 0.9
+    - Vector1_7DB5B97: 0
+    - Vector1_7E0CD173: 3
+    - Vector1_AC574C55: 4
+    - Vector1_E9C3E035: 5.5
+    - Vector1_EA063AE8: 5
+    - Vector1_ECBC89E9: 0
+    m_Colors:
+    - Color_1FF1B8F3: {r: 23.968628, g: 3.0117648, b: 0.7529412, a: 0}
+    - Color_35452C05: {r: 0.7058824, g: 0.46925065, b: 0.23529412, a: 1}
+    - Color_9A9FAD6B: {r: 23.968628, g: 12.047059, b: 2.509804, a: 0}
+    - Vector2_A43E1844: {r: 0.1, g: 0.2, b: 0, a: 0}
+    - Vector2_A659DBFA: {r: -0.1, g: -0.1, b: 0, a: 0}
